@@ -1,3 +1,12 @@
+/*
+	Author: Barney Wilks
+	Date: 05-03-17
+	Purpose:
+		hdi.h -> Human Device Interaction
+		Provides a simple interface between the hardware and user code,
+		such as getting switch state or playing audio
+*/
+
 #include <wiringPi.h>
 #include <string.h>
 #include <stdlib.h>
@@ -6,7 +15,7 @@
 
 void play_wav(const char* fileName) 
 {
-	char buff[256];
+	char buff[256];	// 
 	
 	// The `-q` means don't output anything to STDOUT (`quiet mode`)
 	strcpy(buff, "aplay -q ");
