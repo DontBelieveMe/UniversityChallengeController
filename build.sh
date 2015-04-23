@@ -1,1 +1,1 @@
-/usr/bin/c99 src/main.c -obin/a.out -lwiringPi
+/usr/bin/c99 src/main.c src/hdi.c src/buzzlgc.c -obin/a.out -lwiringPi
