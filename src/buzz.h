@@ -35,4 +35,6 @@ typedef struct team_t
 void check_and_handle_buzzer_presses(team_t* teams, int *pressed);
 void check_and_handle_reset(team_t* teams, int *pressed);
 
+#define BUZZER_SOUND_FILEPATH "/home/pi/python_games/match0.wav"
+
 #endif

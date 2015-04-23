@@ -1,5 +1,6 @@
 #include <wiringPi.h>
 #include <stdlib.h>
+
 #include "buzz.h"
 #include "hdi.h"
 
@@ -19,14 +20,8 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
             {
 			    digitalWrite(human->led_pin, HIGH);
                 *pressed = TRUE;
-                
-                // TODO: 
-                // 		This works but there is a delay before the sound plays
-                // 		This is probably a combination of starting an system process and then the 
-                // 		work that the process itself does.
-                // 		Ideally we should be able to play the sound from code
-                // 		Implement this.
-            	system("omxplayer -o local /home/pi/python_games/beep2.ogg --vol 1750");
+
+            	play_wav(BUZZER_SOUND_FILEPATH);
             }
         }
     }
@@ -42,5 +37,4 @@ void check_and_handle_reset(team_t* teams, int *pressed)
 
         *pressed = FALSE;
 	}
-
 }

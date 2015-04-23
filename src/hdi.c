@@ -1,6 +1,17 @@
+#include <wiringPi.h>
+#include <string.h>
+#include <stdlib.h>
+
 #include "hdi.h"
 
-#include <wiringPi.h>
+void play_wav(const char* fileName) 
+{
+	char buff[256];
+	strcpy(buff, "aplay ");
+	strcat(buff, fileName);
+	
+	system(buff);
+}
 
 void write_to_all_leds(team_t* teams, int state)
 {
