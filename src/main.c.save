@@ -1,0 +1,129 @@
+#include <wiringPi.h>
+#include <stdio.h>
+
+//#define ENABLE_LOGGING
+
+#ifdef ENABLE_LOGGING
+    #define LOGF(msg, ...) printf(msg, __VA_ARGS__)
+    #define LOG(msg) printf(msg)
+#else
+    #define LOGF(msg ...)
+    #define LOG(msg)
+#endif
+
+#define TEAM1_LIGHT 11
+#define TEAM2_LIGHT 9
+
+#define TEAM1_SWITCH 2
+#define TEAM2_SWITCH 3
+
+#define RESET_SWITCH 4
+
+#define TRUE 1
+#define FALSE 0
+
+typedef struct team_t
+{
+    int switch_pin;
+    int led_pin;
+} team_t;
+
+#define TEAM_NUM 2
+
+#define TEAM1 0
+#define TEAM2 1
+
+static team_t _teams[] = {
+    { 2, 11 },
+    { 3, 9 }
+};
+
+static int is_pressed(int pin)
+{
+	return digitalRead(pin) == LOW;
+}
+
+int _pressed = FALSE;
+
+static void check_teams(void)
+{
+    int i;
+    for(i = 0; i < TEAM_NUM; ++i)
+    {
+        team_t* team = &(_teams[i]);
+        if(is_pressed(team->switch_pin) && !_pressed)
+        {
+            digitalWrite(team->led_pin, HIGH);
+            _pressed = TRUE;
+        }
+    }
+}
+
+static write_to_all_leds(int state)
+{
+    int i;
+    for(i = 0; i < TEAM_NUM; ++i) 
+{
+        }
+}
+
+static void step(void)
+{
+	check_teams();
+
+	if(is_pressed(RESET_SWITCH))
+    {
+        LOG(">>> Reseting all switches\n");
+
+        digitalWrite(TEAM1_LIGHT, LOW);
+        digitalWrite(TEAM2_LIGHT, LOW);
+        _pressed = FALSE;
+	}
+
+	delay(10);
+}
+
+static void run(void)
+{
+    LOG(">>> Running setup\n");
+
+	while(1)
+    {
+		step();
+	}
+}
+
+static void setup(void)
+{
+	wiringPiSetupGpio();
+
+    int i;
+    for(i = 0; i < TEAM_NUM; ++i)
+    {
+        team_t* team = &(_teams[i]);
+        pinMode(team->switch_pin, INPUT);
+        pinMode(team->led_pin, OUTPUT);
+
+        digitalWrite(team->led_pin, LOW);
+    }
+
+	pinMode(RESET_SWITCH, INPUT);
+}
+
+static void end(void)
+{
+    int i;
+    for(i = 0; i < TEAM_NUM; ++i)
+    {
+        team_t* team = &(_teams[i]);
+        digitalWrite(team->led_pin, LOW);
+    }
+}
+
+int main()
+{
+	setup();
+	run();
+
+	return 0;
+}
