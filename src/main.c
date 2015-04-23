@@ -1,5 +1,7 @@
 #include <wiringPi.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
 
 #include "buzz.h"
 #include "hdi.h"
@@ -26,7 +28,7 @@ team_t _team2 =
 
 static team_t _teams[TEAM_NUM];
 
-int _pressed = FALSE;
+int _pressed = FALSE;	
 
 static void step(void)
 {
@@ -74,21 +76,21 @@ static void setup(void)
 
 static void end(void)
 {
-    int i;
-    for(i = 0; i < TEAM_NUM; ++i)
-    {
-        team_t* team = &(_teams[i]);
-        int x;
-        for(x = 0; x < HUMAN_NUM; ++x)
-        {
-            human_t* human = &(team->humans[x]);
-            digitalWrite(human->led_pin, LOW);
-        }
-    }
+    write_to_all_leds(_teams, LOW);
+}
+
+void sigint_handler(int num)
+{
+	end();
+	exit(0);
 }
 
 int main()
 {
+	// When Ctrl-C is pressed we want to correctly handle it by resetting all
+	// LEDs to LOW before terminating.
+	signal(SIGINT, sigint_handler);
+	
 	setup();
 	run();
 

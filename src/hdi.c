@@ -7,7 +7,9 @@
 void play_wav(const char* fileName) 
 {
 	char buff[256];
-	strcpy(buff, "aplay ");
+	
+	// The `-q` means don't output anything to STDOUT (`quiet mode`)
+	strcpy(buff, "aplay -q ");
 	strcat(buff, fileName);
 	
 	system(buff);
