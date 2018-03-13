@@ -16,25 +16,36 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
         {
 			human_t* human = &(team->humans[x]);
             
+            printf("%i %i\n", human->switch_pin, is_switch_pressed(human->switch_pin));
+            
+            
             if(is_switch_pressed(human->switch_pin) && !(*pressed))
+            
             {
-			    digitalWrite(human->led_pin, HIGH);
+				if(human->led_pin > 0)
+				{
+			    digitalWrite(human->led_pin, LED_ON);
                 *pressed = TRUE;
 
             	play_wav(BUZZER_SOUND_FILEPATH);
+			}
+			
             }
         }
     }
 }
 
-void check_and_handle_reset(team_t* teams, int *pressed)
+int check_and_handle_reset(team_t* teams, int *pressed)
 {
-	if(is_switch_pressed(RESET_SWITCH))
+	if(!is_switch_pressed(RESET_SWITCH))
     {
         LOG(">>> Reseting all switches\n");
 
-        write_to_all_leds(teams, LOW);
+        write_to_all_leds(teams, LED_OFF);
 
         *pressed = FALSE;
+        return TRUE;
 	}
+	
+	return FALSE;
 }

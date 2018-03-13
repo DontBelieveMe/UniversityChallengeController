@@ -21,22 +21,27 @@
 //		{ 27 -> Switch, 10 -> LED }
 
 // Red Leds (as of writing 05-03-18)
+
+// 23, 18, 15, 14
 team_t _team1 = 
 {
 	{
-		{ 27, 10 },
-		{ 25, 9  },
-		{ 14, 9 }
+		{ 14, -1 },
+		{ 15, 25 },  
+		{ 18, 8  },
+	 	{ 23, 7  }
 	}
 };
 
+//2,3,4,17
 // Yellow Leds (as of writing 05-03-18)
 team_t _team2 = 
 {
 	{
-		{ 17, 8 },
-		{ 22, 11 },
-		{ 15, 11 }
+		{ 4,  -1  }, //2,25
+		{ 17, 10  }, //3,24
+		{ 21, 22  },
+		{ 24, 9 }
 	}
 };
 
@@ -46,10 +51,13 @@ int _pressed = FALSE;
 
 static void step(void)
 {
-	check_and_handle_buzzer_presses(_teams, &_pressed);
-	check_and_handle_reset(_teams, &_pressed);
-
-	delay(10);
+	int has_reset = check_and_handle_reset(_teams, &_pressed);
+	
+	if(!has_reset) {
+		check_and_handle_buzzer_presses(_teams, &_pressed);
+	}
+	
+	delay(16);
 }
 
 static void run(void)
@@ -80,17 +88,20 @@ static void setup(void)
 			
             pinMode(human->switch_pin, INPUT);
             pinMode(human->led_pin, OUTPUT);
+    
+            // Configure 
+            pullUpDnControl(human->switch_pin, PUD_DOWN);
         }
     }
 
-	write_to_all_leds(_teams, LOW);
+	write_to_all_leds(_teams, LED_OFF);
     
 	pinMode(RESET_SWITCH, INPUT);
 }
 
 static void end(void)
 {
-    write_to_all_leds(_teams, LOW);
+    write_to_all_leds(_teams, LED_OFF);
 }
 
 void sigint_handler(int num)
@@ -107,6 +118,6 @@ int main()
 	
 	setup();
 	run();
-
+	
 	return 0;
 }
