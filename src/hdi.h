@@ -20,6 +20,6 @@ void write_to_all_leds(team_t* teams, int state);
 int is_switch_pressed(int gpio_pin);
 
 // Play the specified Wave (.wav) audio file
-void play_wav(const char* fileName);
+void play_wav(const char* file_name);
 
 #endif

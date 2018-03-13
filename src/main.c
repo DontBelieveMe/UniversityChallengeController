@@ -17,32 +17,29 @@
 #include "buzz.h"
 #include "hdi.h"
 
+// GPIO Switch/LED configuration for the teams
+//
 // The order is the switch pin and then the LED. e.g 
 //		{ 27 -> Switch, 10 -> LED }
 
-// Red Leds (as of writing 05-03-18)
-
-// 23, 18, 15, 14
 team_t _team1 = 
 {
-	{
-		{ 14, -1 },
-		{ 15, 25 },  
-		{ 18, 8  },
-	 	{ 23, 7  }
+    {
+	    { 14, 12 },
+	    { 15, 16 },
+        { 23, 20 },
+        { 24, 21 } 
 	}
 };
 
-//2,3,4,17
-// Yellow Leds (as of writing 05-03-18)
 team_t _team2 = 
 {
 	{
-		{ 4,  -1  }, //2,25
-		{ 17, 10  }, //3,24
-		{ 21, 22  },
-		{ 24, 9 }
-	}
+        {, 2},
+        {, 3},
+        {, },
+        {,}
+    }
 };
 
 static team_t _teams[TEAM_NUM];
@@ -51,19 +48,16 @@ int _pressed = FALSE;
 
 static void step(void)
 {
-	int has_reset = check_and_handle_reset(_teams, &_pressed);
-	
-	if(!has_reset) {
-		check_and_handle_buzzer_presses(_teams, &_pressed);
-	}
-	
-	delay(16);
+    check_and_handle_reset(_teams, &_pressed);
+    check_and_handle_buzzer_presses(_teams, &_pressed);
+    
+    // 16ms -> Run the app at 60 FPS (1000 / 60 -> 1000 ms in 1 second, 60 frames in a second)
+
+	delay(16); 
 }
 
 static void run(void)
 {
-    LOG(">>> Running setup\n");
-
 	while(1)
     {
 		step();
@@ -91,6 +85,7 @@ static void setup(void)
     
             // Configure 
             pullUpDnControl(human->switch_pin, PUD_DOWN);
+             
         }
     }
 

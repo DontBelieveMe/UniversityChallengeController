@@ -13,13 +13,13 @@
 
 #include "hdi.h"
 
-void play_wav(const char* fileName) 
+void play_wav(const char* file_name) 
 {
-	char buff[256];	// 
+	char buff[256]; 
 	
 	// The `-q` means don't output anything to STDOUT (`quiet mode`)
 	strcpy(buff, "aplay -q ");
-	strcat(buff, fileName);
+	strcat(buff, file_name);
 	
 	system(buff);
 }
