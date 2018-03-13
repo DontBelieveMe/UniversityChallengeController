@@ -26,9 +26,13 @@
     #define LOG(msg)
 #endif
 
+#ifndef TRUE
+    #define TRUE 1
+#endif
 
-#define TRUE 1
-#define FALSE 0
+#ifndef FALSE
+    #define FALSE 0
+#endif
 
 // The GPIO in for the reset switch
 #define RESET_SWITCH 11
