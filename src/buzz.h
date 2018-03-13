@@ -1,12 +1,12 @@
 /*
-	Author: Barney Wilks
-	Date: 05-03-17
-	Purpose:
-		Provides some common utility functions (such as logging)
-		Also defines some global constants such as number of teams or the buzzer
-		sound file
-		Also provides some logic (such checking for a player to press the a switch or resetting
-		all switches)b
+    Author: Barney Wilks
+    Date: 05-03-17
+    Purpose:
+        Provides some common utility functions (such as logging)
+        Also defines some global constants such as number of teams or the buzzer
+        sound file
+        Also provides some logic (such checking for a player to press the a switch or resetting
+        all switches)b
 */
 
 

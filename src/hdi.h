@@ -1,10 +1,10 @@
 /*
-	Author: Barney Wilks
-	Date: 05-03-17
-	Purpose:
-		hdi.h -> Human Device Interaction
-		Provides a simple interface between the hardware and user code,
-		such as getting switch state or playing audio
+    Author: Barney Wilks
+    Date: 05-03-17
+    Purpose:
+        hdi.h -> Human Device Interaction
+        Provides a simple interface between the hardware and user code,
+        such as getting switch state or playing audio
 */
 
 #ifndef _HDI_H
