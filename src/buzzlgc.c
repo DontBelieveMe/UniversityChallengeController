@@ -18,18 +18,15 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
             
             printf("%i %i\n", human->switch_pin, is_switch_pressed(human->switch_pin));
             
-            
-            if(is_switch_pressed(human->switch_pin) && !(*pressed))
-            
+            if(is_switch_pressed(human->switch_pin) && !(*pressed))            
             {
                 if(human->led_pin > 0)
                 {
-                digitalWrite(human->led_pin, LED_ON);
-                *pressed = TRUE;
+                    digitalWrite(human->led_pin, LED_ON);
+                    *pressed = TRUE;
 
-                play_wav(BUZZER_SOUND_FILEPATH);
-            }
-            
+                    play_wav(BUZZER_SOUND_FILEPATH);
+                }
             }
         }
     }
