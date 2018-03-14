@@ -6,13 +6,11 @@
 
 void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
 {
-    int i;
-    for(i = 0; i < TEAM_NUM; ++i)
+    for(int i = 0; i < TEAM_NUM; ++i)
     {
         team_t* team = &(teams[i]);
         
-        int x;
-        for(x = 0; x < HUMAN_NUM; ++x)
+        for(int x = 0; x < HUMAN_NUM; ++x)
         {
 		    human_t* human = &(team->humans[x]);
                       
