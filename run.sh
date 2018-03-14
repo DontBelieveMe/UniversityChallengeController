@@ -1,1 +1,1 @@
-sudo bin/a.out
+sudo build/ucc
