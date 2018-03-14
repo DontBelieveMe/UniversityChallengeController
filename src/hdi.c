@@ -29,12 +29,12 @@ void *play_wav_async(void* arg)
 
 void play_wav(const char* file_name) 
 {
-	char buff[256]; 
+    char buff[256]; 
     
     // Here we construct the command string.  
 	// The `-q` means don't output anything to STDOUT (`quiet mode`)
-	strcpy(buff, "aplay -q ");
-	strcat(buff, file_name);
+    strcpy(buff, "aplay -q ");
+    strcat(buff, file_name);
     
     // Play the sound effect in another thread.
     // This is because `system(...)` is a blocking call, meaning
