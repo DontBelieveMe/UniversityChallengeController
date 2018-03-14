@@ -32,7 +32,7 @@ void play_wav(const char* file_name)
     char buff[256]; 
     
     // Here we construct the command string.  
-	// The `-q` means don't output anything to STDOUT (`quiet mode`)
+    // The `-q` means don't output anything to STDOUT (`quiet mode`)
     strcpy(buff, "aplay -q ");
     strcat(buff, file_name);
     
