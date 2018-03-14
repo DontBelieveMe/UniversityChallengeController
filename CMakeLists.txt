@@ -11,6 +11,9 @@ set(headers
     src/buzz.h
     src/hdi.h
 )
+
 add_definitions(-std=c99)
+
 add_executable(ucc ${source} ${headers})
+
 target_link_libraries(ucc wiringPi pthread)
