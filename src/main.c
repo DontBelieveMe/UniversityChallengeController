@@ -78,6 +78,7 @@ static void setup(void)
     // numbering scheme.
     wiringPiSetupGpio();
     
+    // Put the team data into the teams array 
     _teams[0] = _team1;
     _teams[1] = _team2;
     

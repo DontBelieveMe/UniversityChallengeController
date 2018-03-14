@@ -13,4 +13,4 @@ set(headers
 )
 
 add_executable(ucc ${source} ${headers})
-target_link_libraries(ucc wiringPi)
+target_link_libraries(ucc wiringPi pthread)

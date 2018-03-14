@@ -10,8 +10,19 @@
 #include <wiringPi.h>
 #include <string.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #include "hdi.h"
+
+void *play_wav_async(void* arg)
+{
+    char *param = (char*)arg;
+    system(param);
+
+    pthread_exit(NULL);
+    
+    return NULL;
+}
 
 void play_wav(const char* file_name) 
 {
@@ -20,8 +31,9 @@ void play_wav(const char* file_name)
 	// The `-q` means don't output anything to STDOUT (`quiet mode`)
 	strcpy(buff, "aplay -q ");
 	strcat(buff, file_name);
-	
-	system(buff);
+    
+    pthread_t pth;
+    pthread_create(&pth, NULL, play_wav_async, buff);
 }
 
 void write_to_all_leds(team_t* teams, int state)
