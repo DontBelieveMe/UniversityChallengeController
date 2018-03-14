@@ -46,7 +46,7 @@ int check_and_handle_reset(team_t* teams, int *pressed)
 {
     // The reset switch input is inverted (i.g LOW when it is pressed)
     // Because of a wiring mistake. Blame oliver. Ta
-    if(!is_switch_pressed(RESET_SWITCH))
+    if(is_switch_pressed(RESET_SWITCH))
     {
         printf("Buttons have been RESET!\n");
 

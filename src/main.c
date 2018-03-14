@@ -43,7 +43,7 @@ team_t _team2 =
         { 26, 22 }
     },
 
-    "/home/pi/Dev/buzz/dat/buzz.wav"
+    "/home/pi/Dev/buzz/dat/ring2.wav"
 };
 
 static team_t _teams[TEAM_NUM];
@@ -108,6 +108,7 @@ static void setup(void)
     
     // Configure the reset buttons GPIO pin as an input. Which it is. Obvs.
     pinMode(RESET_SWITCH, INPUT);
+    pullUpDnControl(RESET_SWITCH, PUD_DOWN);
 }
 
 static void end(void)
