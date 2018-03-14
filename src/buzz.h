@@ -64,7 +64,7 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed);
 
 int check_and_handle_reset(team_t* teams, int *pressed);
 
-#define BUZZER_SOUND_FILEPATH "/home/pi/Dev/buzz/dat/buzz2.wav"
+#define BUZZER_SOUND_FILEPATH "/home/pi/Dev/buzz/dat/buzz.wav"
 
 // The pin states HIGH and LOW are abstracted into these defines for turning an LED on and off
 // This is because relays have no regard for human life. R.I.P sanity.
