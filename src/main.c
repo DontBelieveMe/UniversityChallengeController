@@ -29,7 +29,9 @@ team_t _team1 =
 	    { 15, 16 },
         { 23, 20 },
         { 24, 21 } 
-	}
+	},
+
+    "/home/pi/Dev/buzz/dat/buzz.wav"
 };
 
 team_t _team2 = 
@@ -39,7 +41,9 @@ team_t _team2 =
         { 13, 17 },
         { 19, 27 },
         { 26, 22 }
-    }
+    },
+
+    "/home/pi/Dev/buzz/dat/buzz.wav"
 };
 
 static team_t _teams[TEAM_NUM];
@@ -51,13 +55,16 @@ static void step(void)
     check_and_handle_reset(_teams, &_pressed);
     check_and_handle_buzzer_presses(_teams, &_pressed);
     
-    // 16ms -> Run the app at 60 FPS (1000 / 60 -> 1000 ms in 1 second, 60 frames in a second)
+    // 16ms -> Run the app at 60 FPS 
+    // (1000 / 60 -> 1000 ms in 1 second, 60 frames in a second)
 
 	delay(16); 
 }
 
 static void run(void)
 {
+    // Run an infinite loop -> can be broken out of using 
+    // Ctrl-C. This is handled with the sigint_handler code below.
     while(1)
     {
         step();
@@ -66,6 +73,9 @@ static void run(void)
 
 static void setup(void)
 {
+    // Configure wiringPi to use the actual GPIO pin numbers
+    // and not wiringPi's own system that is designed to "simplify" the
+    // numbering scheme.
     wiringPiSetupGpio();
     
     _teams[0] = _team1;
@@ -80,25 +90,36 @@ static void setup(void)
         {
             human_t* human = &(team->humans[x]);
             
+            // Set the players GPIO pins to be inputs (for the button switches)
+            // and outputs (for the buttons LED's)
             pinMode(human->switch_pin, INPUT);
             pinMode(human->led_pin, OUTPUT);
     
-            // Configure 
+            // Configure all of the switch pins to use the raspberry pi's
+            // internal 50kΩ pull down resistors. 
             pullUpDnControl(human->switch_pin, PUD_DOWN);
              
         }
     }
-
+    
+    // Turn off all the LED's (aka reset them) so we have a clean
+    // slate to write to.
     write_to_all_leds(_teams, LED_OFF);
     
+    // Configure the reset buttons GPIO pin as an input. Which it is. Obvs.
     pinMode(RESET_SWITCH, INPUT);
 }
 
 static void end(void)
 {
+    // When we end we want to turn off all the LED's.
+    // Technically this makes the reset at the start of the program redundant
+    // but it's in here just for the shits and giggles.
     write_to_all_leds(_teams, LED_OFF);
 }
 
+// The callback to be executed when Ctrl-C is pressed
+// See comment below.
 void sigint_handler(int num)
 {
     end();

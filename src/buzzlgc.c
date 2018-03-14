@@ -15,9 +15,7 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
         for(x = 0; x < HUMAN_NUM; ++x)
         {
 		    human_t* human = &(team->humans[x]);
-            
-            //printf("%i %i\n", human->switch_pin, is_switch_pressed(human->switch_pin));
-           
+                      
             if(is_switch_pressed(human->switch_pin) && !(*pressed)) 
             {
                 printf("Switch Pressed %i %i\n", human->switch_pin, human->led_pin);
@@ -27,11 +25,20 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
                 // not to have an assosiated pin
                 if(human->led_pin > 0)
                 {
+                    // Turn on that players button LED.
 			        digitalWrite(human->led_pin, LED_ON);
-                    *pressed = TRUE;
 
-            	    play_wav(BUZZER_SOUND_FILEPATH);
-                }
+                    // Now lock out any other buttons until the reset button
+                    // is pressed, setting this flag to FALSE and meaning 
+                    // any button can be pressed again.
+                    *pressed = TRUE;
+                    
+                    // Play the teams sound effect -> This is different for each
+                    // team, hence why it is stored in the `team_t` struct.
+                    // TODO: This sound effect should be able to be customised
+                    //       for each player.
+                    play_wav(team->sound_file_path);
+                }	
             }
         }
     }
@@ -46,7 +53,9 @@ int check_and_handle_reset(team_t* teams, int *pressed)
         LOG(">>> Reseting all switches\n");
 
         write_to_all_leds(teams, LED_OFF);
-
+        
+        // Disable the lock on all the other buttons, reseting the game state so
+        // that now all the buttons are in play again (aka can be pressed).
         *pressed = FALSE;
 
         return TRUE;

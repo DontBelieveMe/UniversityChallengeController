@@ -61,7 +61,7 @@ typedef struct human_t
 typedef struct team_t
 {
     human_t humans[HUMAN_NUM];
-    int score;
+    const char *sound_file_path; 
 } team_t;
 
 void check_and_handle_buzzer_presses(team_t* teams, int *pressed);
