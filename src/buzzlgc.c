@@ -18,7 +18,7 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
                       
             if(is_switch_pressed(human->switch_pin) && !(*pressed)) 
             {
-                printf("Switch Pressed %i %i\n", human->switch_pin, human->led_pin);
+                printf("Please press the reset button. Ta");
 		        
                 // This check was implemnted during a dark time when we didn't
                 // have enough GPIO pins. Basically this allows some switches
@@ -50,7 +50,7 @@ int check_and_handle_reset(team_t* teams, int *pressed)
     // Because of a wiring mistake. Blame oliver. Ta
     if(!is_switch_pressed(RESET_SWITCH))
     {
-        LOG(">>> Reseting all switches\n");
+        printf("Buttons have been RESET!\n");
 
         write_to_all_leds(teams, LED_OFF);
         
