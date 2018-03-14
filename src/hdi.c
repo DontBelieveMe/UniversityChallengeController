@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#include "hdi.h"
+#include <buzz/hdi.h>
 
 // The function callback that will play the sound effect in another thread
 void *play_wav_async(void* arg)

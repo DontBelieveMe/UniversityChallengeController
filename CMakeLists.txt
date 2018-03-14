@@ -8,11 +8,12 @@ set(source
 )
 
 set(headers
-    src/buzz.h
-    src/hdi.h
+    include/buzz/buzz.h
+    include/buzz/hdi.h
 )
 
 add_definitions(-std=c99)
+include_directories(include)
 
 add_executable(ucc ${source} ${headers})
 

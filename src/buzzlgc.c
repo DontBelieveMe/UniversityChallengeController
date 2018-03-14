@@ -1,8 +1,8 @@
 #include <wiringPi.h>
 #include <stdlib.h>
 
-#include "buzz.h"
-#include "hdi.h"
+#include <buzz/buzz.h>
+#include <buzz/hdi.h>
 
 void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
 {
@@ -20,7 +20,7 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
 		        
                 // This check was implemnted during a dark time when we didn't
                 // have enough GPIO pins. Basically this allows some switches
-                // not to have an assosiated pin
+                // not to have an assosiated LED
                 if(human->led_pin > 0)
                 {
                     // Turn on that players button LED.

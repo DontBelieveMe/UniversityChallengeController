@@ -14,8 +14,8 @@
 #include <stdlib.h>
 #include <signal.h>
 
-#include "buzz.h"
-#include "hdi.h"
+#include <buzz/buzz.h>
+#include <buzz/hdi.h>
 
 // GPIO Switch/LED configuration for the teams
 //
