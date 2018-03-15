@@ -40,8 +40,8 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
                     // TODO: This sound effect should be able to be customised
                     //       for each player.
                     //printf("%i %i\n", i, x);
-                    if(i == 1 && x == 3) play_wav("/home/pi/Dev/buzz/dat/dave.wav");
-                    else play_wav(team->sound_file_path);
+//                    if(i == 1 && x == 3) play_wav("/home/pi/Dev/buzz/dat/dave.wav");
+                    /*else*/ play_wav(team->sound_file_path);
                 }	
             }
         }
@@ -59,7 +59,7 @@ int check_and_handle_reset(team_t* teams, int *pressed)
         // Disable the lock on all the other buttons, reseting the game state so
         // that now all the buttons are in play again (aka can be pressed).
         *pressed = FALSE;
-        play_wav("/home/pi/Dev/buzz/dat/reset.wav");
+        //play_wav("/home/pi/Dev/buzz/dat/reset.wav");
         
         // This means the reset logic only triggers once. Even if the switch is
         // held down

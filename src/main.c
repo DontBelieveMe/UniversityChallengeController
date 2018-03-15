@@ -52,9 +52,28 @@ int _pressed = FALSE;
 
 static void step(void)
 {
-    check_and_handle_reset(_teams, &_pressed);
-    check_and_handle_buzzer_presses(_teams, &_pressed);
+    int only_handle_reset = FALSE;
+
+    for(int i = 0; i < TEAM_NUM; ++i)
+    {
+        team_t* team = &(_teams[i]);
+        for(int j = 0; j < HUMAN_NUM; j++)
+        {
+            human_t* human = &(team->humans[j]);
+            if(is_switch_pressed(human->switch_pin) && is_switch_pressed(RESET_SWITCH))
+            {
+                only_handle_reset = TRUE;
+            }
+        }
+    }
     
+    check_and_handle_reset(_teams, &_pressed);
+    
+    if(!only_handle_reset)
+    {
+        check_and_handle_buzzer_presses(_teams, &_pressed);
+    }
+
     // 16ms -> Run the app at 60 FPS 
     // (1000 / 60 -> 1000 ms in 1 second, 60 frames in a second)
 
