@@ -39,7 +39,9 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
                     // team, hence why it is stored in the `team_t` struct.
                     // TODO: This sound effect should be able to be customised
                     //       for each player.
-                    play_wav(team->sound_file_path);
+                    //printf("%i %i\n", i, x);
+                    if(i == 1 && x == 3) play_wav("/home/pi/Dev/buzz/dat/dave.wav");
+                    else play_wav(team->sound_file_path);
                 }	
             }
         }
