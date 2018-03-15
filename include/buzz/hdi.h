@@ -21,5 +21,4 @@ int is_switch_pressed(int gpio_pin);
 
 // Play the specified Wave (.wav) audio file
 void play_wav(const char* file_name);
-
 #endif

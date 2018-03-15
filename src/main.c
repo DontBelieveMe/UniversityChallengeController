@@ -43,7 +43,7 @@ team_t _team2 =
         { 26, 22 }
     },
 
-    "/home/pi/Dev/buzz/dat/ring2.wav"
+    "/home/pi/Dev/buzz/dat/ring.wav"
 };
 
 static team_t _teams[TEAM_NUM];

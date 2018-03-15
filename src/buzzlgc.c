@@ -4,6 +4,8 @@
 #include <buzz/buzz.h>
 #include <buzz/hdi.h>
 
+int _reset_once = FALSE;
+
 void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
 {
     for(int i = 0; i < TEAM_NUM; ++i)
@@ -31,6 +33,8 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
                     // any button can be pressed again.
                     *pressed = TRUE;
                     
+                    _reset_once = FALSE;
+
                     // Play the teams sound effect -> This is different for each
                     // team, hence why it is stored in the `team_t` struct.
                     // TODO: This sound effect should be able to be customised
@@ -44,7 +48,7 @@ void check_and_handle_buzzer_presses(team_t* teams, int *pressed)
 
 int check_and_handle_reset(team_t* teams, int *pressed)
 {
-    if(is_switch_pressed(RESET_SWITCH))
+    if(is_switch_pressed(RESET_SWITCH) && !_reset_once)
     {
         printf("Buttons have been RESET!\n");
 
@@ -53,7 +57,11 @@ int check_and_handle_reset(team_t* teams, int *pressed)
         // Disable the lock on all the other buttons, reseting the game state so
         // that now all the buttons are in play again (aka can be pressed).
         *pressed = FALSE;
-
+        play_wav("/home/pi/Dev/buzz/dat/reset.wav");
+        
+        // This means the reset logic only triggers once. Even if the switch is
+        // held down
+        _reset_once = TRUE;
         return TRUE;
     }
     
